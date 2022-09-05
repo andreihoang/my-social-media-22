@@ -1,0 +1,1 @@
+export const selectCurrentChat = state => state.conversation.currentChat;

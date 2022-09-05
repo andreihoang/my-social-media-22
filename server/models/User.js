@@ -1,62 +1,63 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     username: {
-        type: String,
-        required: true,
-        min: 3,
-        max: 20,
-        unique: true
+      type: String,
+      required: true,
+      min: 3,
+      max: 20,
+      unique: true,
     },
     email: {
-        type: String,
-        required: true,
-        max: 50,
-        unique: true
+      type: String,
+      required: true,
+      max: 50,
+      unique: true,
     },
     password: {
-        type: String,
-        required: true,
-        min: 6
+      type: String,
+      required: true,
+      min: 6,
     },
     profilePicture: {
-        type: String,
-        default: "",
+      type: String,
+      default: "images_po22fy",
     },
     coverPicture: {
-        type: String,
-        default: "",
+      type: String,
+      default: "607d7c47a80a23bfeb8317d558103bab_jsnzua",
     },
     followers: {
-        type: Array,
-        default: []
+      type: Array,
+      default: [],
     },
     followings: {
-        type: Array,
-        default: []
+      type: Array,
+      default: [],
     },
     isAdmin: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     desc: {
-        type: String,
-        max: 50,
+      type: String,
+      max: 50,
     },
     city: {
-        type: String,
-        max: 50,
+      type: String,
+      max: 50,
     },
     from: {
-        type: String,
-        max: 50,
+      type: String,
+      max: 50,
     },
     relationship: {
-        type: Number,
-        enum: [1,2,3],
-    }
+      type: Number,
+      enum: [1, 2, 3],
     },
-    {timestamps: true}
+  },
+  { timestamps: true }
 );
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

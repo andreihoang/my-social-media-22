@@ -1,3 +1,17 @@
+.rightbarFollowButton {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: rgba(2, 100, 86, 0.849);
+  color: aliceblue;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
 .rightbar {
   flex: 3.5;
   padding: 10px;

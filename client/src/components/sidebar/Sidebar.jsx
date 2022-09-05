@@ -1,12 +1,46 @@
 import { Bookmark, Chat, Event, Group, HelpOutline, PlayCircleFilledOutlined, RssFeed, School, WorkOutline } from '@material-ui/icons';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Users } from '../../dummyData';
-import CloseFriend from '../closeFriend/CloseFriend';
+import { selectUser } from '../../store/user/user.selector';
+import CloseFriend from '../suggestionFriend/CloseFriend';
 
 
 import './Sidebar.scss';
 
 const Sidebar = () => {
+    const currentUser = useSelector(selectUser);
+    const [suggestionFriends, setSuggestionFriends] = useState([]);
+    const [filterSuggestionFriends, setFilterSuggestionFriends] = useState(suggestionFriends);
+
+    useEffect(() => {
+        const getSuggestionFriends = async () => {
+            try {
+                const res = await axios.get('/user/users');
+                setSuggestionFriends(res.data);
+            }catch(err) {
+                console.log(err);
+            }
+        }
+        getSuggestionFriends();
+    }, [currentUser._id])
+
+    useEffect(() => {
+        const suggestions = suggestionFriends.filter(f => f._id !== currentUser._id);
+        const filterSuggestion = suggestions.filter(suggestion => {
+            let isNotFriend = true;
+            for (let friend of currentUser.followings) {
+                if (friend === suggestion._id) {
+                    isNotFriend = false;
+                } 
+            }
+            return isNotFriend
+        })
+        setFilterSuggestionFriends(filterSuggestion)
+
+    }, [suggestionFriends, currentUser._id])
+
   return (
     <div className='sidebar'>
         <div className='sidebarWrapper'>
@@ -50,8 +84,9 @@ const Sidebar = () => {
             </ul>
             <button className='sidebarButton'>Show More</button>
             <hr className='sidebarHr'/>
+            <span className='suggestion'>Friends Suggestion</span>
             <ul className='sidebarFriendList'>
-                {Users.map(user => <CloseFriend key={user.id} user={user} />)}
+                {filterSuggestionFriends.map(user => <CloseFriend key={user.id} user={user} />)}
             </ul>
         </div>
     </div>

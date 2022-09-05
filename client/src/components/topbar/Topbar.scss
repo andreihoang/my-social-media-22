@@ -10,7 +10,11 @@
 
   .topbarLeft {
     flex: 3;
-
+    .linkLogo {
+      outline: none;
+      border-style: none;
+      text-decoration: none;
+    }
     .logo {
       font-size: 24px;
       font-weight: bold;
@@ -52,6 +56,19 @@
     align-items: center;
     justify-content: space-around;
     color: white;
+    .logoutButton {
+      height: 30px;
+      width: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: aliceblue;
+      background-color: rgb(0, 68, 62);
+      border: none;
+      border-radius: 10px;
+      align-items: center;
+      cursor: pointer;
+    }
 
     .topbarLink {
       margin-right: 10px;
@@ -66,6 +83,13 @@
         margin-right: 15px;
         cursor: pointer;
         position: relative;
+        text-decoration: none;
+        border-style: none;
+        color: aliceblue;
+
+        &:hover {
+          transform: scale(1.1);
+        }
 
         .topbarIconBadge {
           width: 15px;
@@ -90,5 +114,8 @@
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
