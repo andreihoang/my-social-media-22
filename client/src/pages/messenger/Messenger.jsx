@@ -6,7 +6,7 @@ import Message from "../../components/message/Message";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/user/user.selector";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { io } from "socket.io-client";
 import { selectCurrentChat } from "../../store/conversation/conversation.selector";
 import { setCurrentChat } from "../../store/conversation/conversation.action";
@@ -61,7 +61,9 @@ const Messenger = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get(`/conversations/${currentUser._id}`);
+        const res = await axiosInstance.get(
+          `/conversations/${currentUser._id}`
+        );
         setConversations(res.data);
       } catch (err) {
         console.log(err);
@@ -74,7 +76,7 @@ const Messenger = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get(`/messages/${currentChat?._id}
+        const res = await axiosInstance.get(`/messages/${currentChat?._id}
         `);
         setMessages(res.data);
       } catch (err) {
@@ -103,7 +105,7 @@ const Messenger = () => {
         text: newMessage,
       });
 
-      const res = await axios.post("/messages", message);
+      const res = await axiosInstance.post("/messages", message);
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {

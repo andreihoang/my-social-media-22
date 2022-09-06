@@ -8,7 +8,7 @@ COPY client/package*.json client/
 RUN npm run install-client --only=production --force
 
 COPY server/package.json server/
-RUN npm install --prefix server --only=production --force
+RUN npm install --prefix server --only=production
 
 COPY socket/package.json socket/
 RUN npm run install-socket --only=production

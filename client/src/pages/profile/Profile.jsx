@@ -4,7 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/feed/Feed";
 import Righbar from "../../components/rightbar/Rightbar";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { useParams } from "react-router-dom";
 import PostDetail from "../../components/postDetail/PostDetail";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,15 +15,12 @@ import "./Profile.scss";
 
 const Profile = () => {
   const currentPost = useSelector(selectCurrentPost);
-  const dispatch = useDispatch();
   const [user, setUser] = useState({});
   const { username } = useParams();
 
-  console.log({ user });
-
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/user?username=${username}`);
+      const res = await axiosInstance.get(`/user?username=${username}`);
       setUser(res.data);
     };
     fetchUser();

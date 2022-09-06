@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -25,7 +25,7 @@ const Register = () => {
     if (confirmedPassword.current.value === password.current.value) {
       try {
         dispatch(fetchUserStart());
-        const res = await axios.post("/auth/register", {
+        const res = await axiosInstance.post("/auth/register", {
           username: username.current.value,
           email: email.current.value,
           password: password.current.value,

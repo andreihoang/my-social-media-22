@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import React, { useEffect, useState } from "react";
 import "./ChatOnline.scss";
 import { Image } from "cloudinary-react";
@@ -9,7 +9,7 @@ const ChatOnline = ({ onlineUsers, currentUser, setCurrentChat }) => {
 
   useEffect(() => {
     const getFriends = async () => {
-      const res = await axios.get(`/user/friends/${currentUser._id}`);
+      const res = await axiosInstance.get(`/user/friends/${currentUser._id}`);
       setFriends(res.data);
     };
     getFriends();
@@ -23,7 +23,7 @@ const ChatOnline = ({ onlineUsers, currentUser, setCurrentChat }) => {
 
   const handleClick = async (user) => {
     try {
-      const res = await axios.get(
+      const res = await axiosInstance.get(
         `/conversations/find/${currentUser._id}/${user._id}`
       );
       setCurrentChat(res.data);

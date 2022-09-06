@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import React, { useEffect, useState } from "react";
 
 import Online from "../online/Online";
@@ -26,7 +26,7 @@ const Righbar = ({ user }) => {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const res = await axios.get(`/user/friends/${currentUser._id}`);
+        const res = await axiosInstance.get(`/user/friends/${currentUser._id}`);
         setFriends(res.data);
       } catch (err) {
         console.log(err);
@@ -69,7 +69,7 @@ const Righbar = ({ user }) => {
     useEffect(() => {
       async function fetchFriends() {
         try {
-          const res = await axios.get(`/user/friends/${user._id}`);
+          const res = await axiosInstance.get(`/user/friends/${user._id}`);
           setFriends(res.data);
         } catch (err) {
           console.log(err);
@@ -81,12 +81,12 @@ const Righbar = ({ user }) => {
     const handleFollow = async () => {
       try {
         if (followed) {
-          await axios.put(`/user/${user._id}/unfollow`, {
+          await axiosInstance.put(`/user/${user._id}/unfollow`, {
             userId: currentUser._id,
           });
           dispatch(unFollowUser(user._id));
         } else {
-          await axios.put(`/user/${user._id}/follow`, {
+          await axiosInstance.put(`/user/${user._id}/follow`, {
             userId: currentUser._id,
           });
           dispatch(followUser(user._id));
@@ -100,7 +100,7 @@ const Righbar = ({ user }) => {
     const handleMessage = async () => {
       dispatch(fetchConversationStart());
       try {
-        const res = await axios.post("/conversations/", {
+        const res = await axiosInstance.post("/conversations/", {
           firstUserID: currentUser._id,
           secondUserId: user._id,
         });

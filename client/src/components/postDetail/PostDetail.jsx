@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentPost } from "../../store/post/post.selector";
 import { format } from "timeago.js";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { selectUser } from "../../store/user/user.selector";
 import { Close } from "@material-ui/icons";
 import { setCurrentPost } from "../../store/post/post.action";
@@ -21,7 +21,9 @@ const PostDetail = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`/user?userId=${currentPost?.userId}`);
+        const res = await axiosInstance.get(
+          `/user?userId=${currentPost?.userId}`
+        );
         setUser(res.data);
       } catch (err) {
         console.log(err);
@@ -34,11 +36,14 @@ const PostDetail = () => {
     e.preventDefault();
     try {
       if (comment.length) {
-        const res = await axios.put(`/posts/${currentPost._id}/comments`, {
-          commenterName: currentUser.username,
-          commenterPicture: currentUser.profilePicture,
-          comment: comment,
-        });
+        const res = await axiosInstance.put(
+          `/posts/${currentPost._id}/comments`,
+          {
+            commenterName: currentUser.username,
+            commenterPicture: currentUser.profilePicture,
+            comment: comment,
+          }
+        );
         dispatch(setCurrentPost(res.data));
         setComment("");
       }

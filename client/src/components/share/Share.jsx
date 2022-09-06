@@ -13,8 +13,7 @@ import { useDispatch } from "react-redux";
 import { Image } from "cloudinary-react";
 
 import "./Share.scss";
-import axios from "axios";
-import { selectPosts } from "../../store/post/post.selector";
+import { axiosInstance } from "../../config";
 
 const Share = () => {
   const dispatch = useDispatch();
@@ -48,14 +47,14 @@ const Share = () => {
       newPost.img = fileName;
       console.log(newPost);
       try {
-        await axios.post("/upload", data);
+        await axiosInstance.post("/upload", data);
       } catch (err) {
         console.log(err);
       }
     }
 
     try {
-      const res = await axios.post("/posts", newPost);
+      const res = await axiosInstance.post("/posts", newPost);
       dispatch(addNewPost(res.data));
       handleReset();
     } catch (err) {

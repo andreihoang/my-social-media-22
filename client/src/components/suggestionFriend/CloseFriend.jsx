@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./CloseFriend.scss";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/user/user.selector";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { useDispatch } from "react-redux";
 import { followUser, unFollowUser } from "../../store/user/user.action";
 import { Link } from "react-router-dom";
@@ -20,12 +20,12 @@ const CloseFriend = ({ user }) => {
     try {
       // follow user if not follow yet
       if (followed) {
-        await axios.put(`user/${user._id}/unfollow`, {
+        await axiosInstance.put(`user/${user._id}/unfollow`, {
           userId: currentUser._id,
         });
         dispatch(unFollowUser(user._id));
       } else {
-        await axios.put(`user/${user._id}/follow`, {
+        await axiosInstance.put(`user/${user._id}/follow`, {
           userId: currentUser._id,
         });
         dispatch(followUser(user._id));

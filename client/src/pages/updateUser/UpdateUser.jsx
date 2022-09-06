@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/user/user.selector";
@@ -36,7 +36,7 @@ const UpdateUser = () => {
     e.preventDefault();
     if (file) {
       try {
-        await axios.post(`/uploadimage/${currentUser._id}`, {
+        await axiosInstance.post(`/uploadimage/${currentUser._id}`, {
           image: image,
         });
       } catch (err) {
@@ -44,7 +44,7 @@ const UpdateUser = () => {
       }
     }
     try {
-      const res = await axios.put(`/user/${currentUser._id}`, {
+      const res = await axiosInstance.put(`/user/${currentUser._id}`, {
         userId: currentUser._id,
         profilePicture: currentUser._id,
         city: city.current.value,
