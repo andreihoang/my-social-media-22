@@ -52,9 +52,9 @@ const PostDetail = () => {
     }
   };
 
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [currentPost.comments]);
+  // useEffect(() => {
+  //   scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [currentPost.comments]);
 
   return (
     <div className="postDetail">
